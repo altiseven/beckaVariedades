@@ -1,0 +1,6 @@
+{
+  "name": "Becka Variedades",
+  "description": "Retail CRM e Gerenciamento de Vendas e Inventário para Becka Variedades.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

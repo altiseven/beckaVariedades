@@ -176,24 +176,6 @@ export default function LoginScreen({ onLoginSuccess }: LoginScreenProps) {
               )}
             </button>
           </form>
-
-          {/* Assistant Preset Box for rapid testing */}
-          <div className="p-md bg-amber-50/40 border border-amber-100 rounded-xl space-y-sm">
-            <div className="flex items-center gap-xs text-xs font-bold text-amber-800">
-              <HelpCircle className="w-4 h-4 text-amber-600" />
-              Acesso de Teste Rápido:
-            </div>
-            <p className="text-[11px] text-slate-600 leading-relaxed font-semibold">
-              Usuário: <code className="bg-amber-100 px-1 py-0.5 rounded text-amber-900 font-mono">admin</code> |
-              Senha: <code className="bg-amber-100 px-1 py-0.5 rounded text-amber-900 font-mono">becka123</code>
-            </p>
-            <button
-              onClick={handleInjectCredentials}
-              className="w-full py-1.5 px-sm bg-white border border-amber-200 text-amber-800 text-xs font-bold rounded-md hover:bg-amber-50 active:scale-98 transition-all cursor-pointer text-center block shadow-xs"
-            >
-              Auto-preencher credenciais
-            </button>
-          </div>
         </div>
 
         {/* Footer info lock indicator */}

@@ -1,33 +1,251 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+:root {
+  --background: #F8FAFC;
+  --on-background: #0F172A;
+  
+  --surface: #FFFFFF;
+  --on-surface: #0F172A;
+  --on-surface-variant: #64748B;
+  
+  --surface-container-low: #FFFFFF;
+  --surface-container: #F1F5F9;
+  --surface-container-high: #E2E8F0;
+  
+  --outline: #E2E8F0;
+  --outline-variant: #ECF0F6;
+  
+  --color-scheme: light;
+}
+
+.dark {
+  --background: #0B0F19;
+  --on-background: #F8FAFC;
+  
+  --surface: #1E293B;
+  --on-surface: #F8FAFC;
+  --on-surface-variant: #94A3B8;
+  
+  --surface-container-low: #0F172A;
+  --surface-container: #1E293B;
+  --surface-container-high: #334155;
+  
+  --outline: #334155;
+  --outline-variant: #223046;
+  
+  --color-scheme: dark;
+}
+
 @theme {
-  --color-primary: #1E293B;
-  --color-primary-hover: #0F172A;
+  --color-primary: #F8FAFC;
+  --color-primary-hover: #FFFFFF;
   
-  --color-secondary: #0D9488;
-  --color-secondary-hover: #0F766E;
+  --color-secondary: #E2583E;
+  --color-secondary-hover: #FA8F75;
   
-  --color-tertiary: #0EA5E9;
+  --color-tertiary: #4C0099;
+  --color-tertiary-hover: #5B21B6;
+  --color-tertiary-fixed: rgba(76, 0, 153, 0.12);
+  --color-on-tertiary-fixed-variant: #C084FC;
   
-  --color-background: #F8FAFC;
-  --color-on-background: #1E293B;
+  --color-background: var(--background);
+  --color-on-background: var(--on-background);
   
-  --color-surface: #FFFFFF;
-  --color-on-surface: #1E293B;
+  --color-surface: var(--surface);
+  --color-on-surface: var(--on-surface);
   
-  --color-on-surface-variant: #475569;
+  --color-on-surface-variant: var(--on-surface-variant);
   
-  --color-surface-container-low: #F8FAFC;
-  --color-surface-container: #F1F5F9;
-  --color-surface-container-high: #E2E8F0;
+  --color-surface-container-low: var(--surface-container-low);
+  --color-surface-container: var(--surface-container);
+  --color-surface-container-high: var(--surface-container-high);
   
-  --color-outline: #CBD5E1;
-  --color-outline-variant: #E2E8F0;
+  --color-outline: var(--outline);
+  --color-outline-variant: var(--outline-variant);
   
-  --color-secondary-container: #E6F4F1;
-  --color-on-secondary-container: #0D9488;
+  --color-secondary-container: rgba(226, 88, 62, 0.12);
+  --color-on-secondary-container: #FA8F75;
   
   --color-error: #EF4444;
   --color-on-error: #FFFFFF;
+
+  /* Custom Spacing tokens to support high-fidelity padding/margin classes (e.g. p-lg, px-xl, gap-md) */
+  --spacing-xs: 0.25rem;  /* 4px */
+  --spacing-sm: 0.5rem;   /* 8px */
+  --spacing-md: 1rem;     /* 16px */
+  --spacing-lg: 1.5rem;   /* 24px */
+  --spacing-xl: 2rem;     /* 32px */
+  --spacing-2xl: 3rem;    /* 48px */
+}
+
+/* Custom Spacing Helpers to guarantee correct layout proportions across all components */
+.p-xs { padding: 0.25rem !important; }
+.p-sm { padding: 0.5rem !important; }
+.p-md { padding: 1rem !important; }
+.p-lg { padding: 1.5rem !important; }
+.p-xl { padding: 2rem !important; }
+.p-2xl { padding: 3rem !important; }
+
+.px-xs { padding-left: 0.25rem !important; padding-right: 0.25rem !important; }
+.px-sm { padding-left: 0.5rem !important; padding-right: 0.5rem !important; }
+.px-md { padding-left: 1rem !important; padding-right: 1rem !important; }
+.px-lg { padding-left: 1.5rem !important; padding-right: 1.5rem !important; }
+.px-xl { padding-left: 2rem !important; padding-right: 2rem !important; }
+
+.py-xs { padding-top: 0.25rem !important; padding-bottom: 0.25rem !important; }
+.py-sm { padding-top: 0.5rem !important; padding-bottom: 0.5rem !important; }
+.py-md { padding-top: 1rem !important; padding-bottom: 1rem !important; }
+.py-lg { padding-top: 1.5rem !important; padding-bottom: 1.5rem !important; }
+.py-xl { padding-top: 2rem !important; padding-bottom: 2rem !important; }
+
+.gap-xs { gap: 0.25rem !important; }
+.gap-sm { gap: 0.5rem !important; }
+.gap-md { gap: 1rem !important; }
+.gap-lg { gap: 1.5rem !important; }
+.gap-xl { gap: 2rem !important; }
+
+.mb-xs { margin-bottom: 0.25rem !important; }
+.mb-sm { margin-bottom: 0.5rem !important; }
+.mb-md { margin-bottom: 1rem !important; }
+.mb-lg { margin-bottom: 1.5rem !important; }
+.mb-xl { margin-bottom: 2rem !important; }
+
+.mt-xs { margin-top: 0.25rem !important; }
+.mt-sm { margin-top: 0.5rem !important; }
+.mt-md { margin-top: 1rem !important; }
+.mt-lg { margin-top: 1.5rem !important; }
+.mt-xl { margin-top: 2rem !important; }
+
+.space-y-xs > :not([hidden]) ~ :not([hidden]) { --tw-space-y-reverse: 0; margin-top: calc(0.25rem * calc(1 - var(--tw-space-y-reverse))) !important; margin-bottom: calc(0.25rem * var(--tw-space-y-reverse)) !important; }
+.space-y-sm > :not([hidden]) ~ :not([hidden]) { --tw-space-y-reverse: 0; margin-top: calc(0.5rem * calc(1 - var(--tw-space-y-reverse))) !important; margin-bottom: calc(0.5rem * var(--tw-space-y-reverse)) !important; }
+.space-y-md > :not([hidden]) ~ :not([hidden]) { --tw-space-y-reverse: 0; margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse))) !important; margin-bottom: calc(1rem * var(--tw-space-y-reverse)) !important; }
+.space-y-lg > :not([hidden]) ~ :not([hidden]) { --tw-space-y-reverse: 0; margin-top: calc(1.5rem * calc(1 - var(--tw-space-y-reverse))) !important; margin-bottom: calc(1.5rem * var(--tw-space-y-reverse)) !important; }
+.space-y-xl > :not([hidden]) ~ :not([hidden]) { --tw-space-y-reverse: 0; margin-top: calc(2rem * calc(1 - var(--tw-space-y-reverse))) !important; margin-bottom: calc(2rem * var(--tw-space-y-reverse)) !important; }
+
+.pl-md { padding-left: 1rem !important; }
+.pr-md { padding-right: 1rem !important; }
+.pl-lg { padding-left: 1.5rem !important; }
+.pr-lg { padding-right: 1.5rem !important; }
+
+/* Default body transition for smooth mode changes */
+body {
+  background-color: var(--background);
+  color: var(--on-background);
+  transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+              color 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+              border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Base styles for active component smooth transitions across light and dark */
+aside, header, main, footer, input, select, textarea, button, .bg-white, .bg-slate-50, .bg-slate-100 {
+  transition: background-color 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+              color 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Custom Premium Dark Mode Overrides based on visual tokens only applied under .dark class */
+.dark body {
+  background-color: #0B0F19 !important;
+  color: #F8FAFC !important;
+}
+
+/* Map default components to use the sleek dark card container in dark mode */
+.dark .bg-white {
+  background-color: #1E293B !important;
+}
+
+/* Clean up outer layouts and cards in dark mode */
+.dark .bg-slate-50 {
+  background-color: #0B0F19 !important;
+}
+.dark .bg-slate-100 {
+  background-color: #141E30 !important;
+}
+.dark .bg-slate-100\/70 {
+  background-color: rgba(20, 30, 48, 0.70) !important;
+}
+.dark .bg-slate-200 {
+  background-color: #2D3D54 !important;
+}
+
+/* Correct text visibility for pristine high-contrast reading in dark mode */
+.dark .text-slate-900, .dark .text-primary {
+  color: #F8FAFC !important;
+}
+.dark .text-slate-850 {
+  color: #F1F5F9 !important;
+}
+.dark .text-slate-800 {
+  color: #E2E8F0 !important;
+}
+.dark .text-slate-700 {
+  color: #CBD5E1 !important;
+}
+.dark .text-slate-650 {
+  color: #CBD5E1 !important;
+}
+.dark .text-slate-600 {
+  color: #94A3B8 !important;
+}
+.dark .text-slate-500 {
+  color: #64748B !important;
+}
+.dark .text-slate-400 {
+  color: #64748B !important;
+}
+
+/* Interactive elements and borders in dark mode */
+.dark .border-outline-variant, .dark .border-slate-200, .dark .border-slate-200\/80 {
+  border-color: #223046 !important;
+}
+.dark .border-slate-300 {
+  border-color: #334155 !important;
+}
+
+/* Keep the branding & button elements colored premium-teal or active deep slate */
+.dark .bg-primary {
+  background-color: #E2583E !important;
+  color: #FFFFFF !important;
+}
+.dark .bg-primary:hover, .dark .hover\:bg-primary-hover:hover {
+  background-color: #FA8F75 !important;
+}
+
+/* Sidebar support for non-active nav states */
+.dark .hover\:bg-slate-100\/80:hover {
+  background-color: rgba(30, 41, 59, 0.5) !important;
+}
+
+/* Active sidebar element selector state needs full visibility override */
+.dark header .text-primary {
+  color: #F8FAFC !important;
+}
+
+/* Input boxes & dialog custom forms consistency in dark mode */
+.dark input, .dark select, .dark textarea {
+  color: #F8FAFC !important;
+  background-color: #141E30 !important;
+  border-color: #223046 !important;
+}
+.dark input::placeholder {
+  color: #64748B !important;
+}
+.dark select option {
+  background-color: #1E293B !important;
+  color: #F8FAFC !important;
+}
+
+/* Dropdown elements and popup cards override in dark layout */
+.dark .absolute.bg-white, .dark .fixed .bg-white {
+  background-color: #1E293B !important;
+}
+.dark div[class*="border-red-200"], .dark .bg-red-50 {
+  background-color: #2A141A !important;
+  border-color: #6B21A8 !important;
+}
+.dark div[class*="border-amber-100"], .dark .bg-amber-50\/40 {
+  background-color: rgba(45, 34, 12, 0.4) !important;
+  border-color: #D97706 !important;
 }

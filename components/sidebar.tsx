@@ -8,9 +8,11 @@ interface SidebarProps {
   onOpenNewTransaction: () => void;
   onLogout?: () => void;
   onOpenDbSettings?: () => void;
+  isOpen?: boolean;
+  onClose?: () => void;
 }
 
-export default function Sidebar({ onOpenNewTransaction, onLogout, onOpenDbSettings }: SidebarProps) {
+export default function Sidebar({ onOpenNewTransaction, onLogout, onOpenDbSettings, isOpen = false, onClose }: SidebarProps) {
   const { activeTab, setActiveTab } = useCRM();
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
 
@@ -21,35 +23,60 @@ export default function Sidebar({ onOpenNewTransaction, onLogout, onOpenDbSettin
     { id: 'Inventory', label: 'Inventory', icon: Package },
   ] as const;
 
-  return (
-    <aside className="bg-white border-r border-outline-variant h-screen w-64 fixed left-0 top-0 flex flex-col py-lg px-md z-50">
-      {/* Brand Header */}
-      <div className="mb-xl px-sm">
-        <h1 className="font-sans text-xl font-bold text-primary tracking-tight">Becka Variedades</h1>
-        <p className="font-sans text-xs text-on-surface-variant font-medium tracking-wide border-b border-outline-variant/30 pb-sm">Retail CRM</p>
-      </div>
+  const handleNavClick = (tabId: 'Dashboard' | 'Clients' | 'Sales' | 'Inventory') => {
+    setActiveTab(tabId);
+    if (onClose) onClose();
+  };
 
-      {/* Nav List */}
-      <nav className="flex-1 space-y-sm">
-        {navItems.map(item => {
-          const Icon = item.icon;
-          const isActive = activeTab === item.id;
-          return (
-            <button
-              key={item.id}
-              onClick={() => setActiveTab(item.id)}
-              className={`w-full flex items-center gap-md px-md py-2.5 rounded-xl transition-all text-left cursor-pointer ${
-                isActive
-                  ? 'bg-primary text-white font-bold shadow-xs'
-                  : 'text-slate-650 hover:bg-slate-100/80 hover:text-primary font-semibold'
-              }`}
+  return (
+    <>
+      {/* Backdrop overlay on mobile */}
+      {isOpen && (
+        <div 
+          onClick={onClose} 
+          className="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-40 md:hidden animate-in fade-in duration-200"
+        />
+      )}
+
+      <aside className={`bg-white border-r border-outline-variant h-screen w-64 fixed left-0 top-0 flex flex-col py-lg px-md z-50 transition-transform duration-300 md:translate-x-0 ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+        {/* Brand Header */}
+        <div className="mb-xl px-sm flex items-center justify-between">
+          <div className="flex-1">
+            <h1 className="font-sans text-xl font-bold text-primary tracking-tight">Becka Variedades</h1>
+            <p className="font-sans text-[10px] text-on-surface-variant font-bold tracking-widest uppercase border-b border-outline-variant/30 pb-sm">Retail CRM</p>
+          </div>
+          {onClose && (
+            <button 
+              onClick={onClose}
+              className="md:hidden ml-md p-1.5 hover:bg-slate-100 rounded-lg text-slate-400 hover:text-slate-700 focus:outline-none cursor-pointer flex items-center justify-center border border-slate-200"
+              title="Fechar menu"
             >
-              <Icon className={`w-5 h-5 ${isActive ? 'text-secondary' : 'text-slate-400'}`} />
-              <span className="font-sans text-sm">{item.label}</span>
+              <span className="font-sans text-sm font-black leading-none px-1">×</span>
             </button>
-          );
-        })}
-      </nav>
+          )}
+        </div>
+
+        {/* Nav List */}
+        <nav className="flex-1 space-y-sm">
+          {navItems.map(item => {
+            const Icon = item.icon;
+            const isActive = activeTab === item.id;
+            return (
+              <button
+                key={item.id}
+                onClick={() => handleNavClick(item.id)}
+                className={`w-full flex items-center gap-md px-md py-2.5 rounded-xl transition-all text-left cursor-pointer ${
+                  isActive
+                    ? 'bg-primary text-white font-bold shadow-xs'
+                    : 'text-slate-650 hover:bg-slate-100/80 hover:text-primary font-semibold'
+                }`}
+              >
+                <Icon className={`w-5 h-5 ${isActive ? 'text-secondary' : 'text-slate-400'}`} />
+                <span className="font-sans text-sm">{item.label}</span>
+              </button>
+            );
+          })}
+        </nav>
 
       {/* Footer Controls */}
       <div className="mt-auto space-y-sm pt-lg border-t border-outline-variant">
@@ -108,5 +135,6 @@ export default function Sidebar({ onOpenNewTransaction, onLogout, onOpenDbSettin
         )}
       </div>
     </aside>
+    </>
   );
 }

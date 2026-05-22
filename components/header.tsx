@@ -1,16 +1,19 @@
 'use client';
 
 import React from 'react';
-import { Search, Bell, MessageSquare, ChevronDown } from 'lucide-react';
+import { Search, Bell, MessageSquare, ChevronDown, Menu, Sun, Moon } from 'lucide-react';
 import Image from 'next/image';
 
 interface HeaderProps {
   searchQuery: string;
   setSearchQuery: (query: string) => void;
   activeTab: string;
+  onMenuClick?: () => void;
+  theme?: 'light' | 'dark';
+  onToggleTheme?: () => void;
 }
 
-export default function Header({ searchQuery, setSearchQuery, activeTab }: HeaderProps) {
+export default function Header({ searchQuery, setSearchQuery, activeTab, onMenuClick, theme = 'dark', onToggleTheme }: HeaderProps) {
   const getPlaceholder = () => {
     switch (activeTab) {
       case 'Clients':
@@ -30,6 +33,16 @@ export default function Header({ searchQuery, setSearchQuery, activeTab }: Heade
 
   return (
     <header className="bg-white border-b border-outline-variant flex justify-between items-center px-lg h-16 w-full sticky top-0 z-40">
+      {onMenuClick && (
+        <button
+          onClick={onMenuClick}
+          className="md:hidden mr-3 p-2 hover:bg-slate-100 rounded-lg text-primary focus:outline-none cursor-pointer flex items-center justify-center border border-slate-200/80 shadow-xs"
+          title="Abrir Menu"
+        >
+          <Menu className="w-5 h-5 text-slate-650" />
+        </button>
+      )}
+
       {/* Search Bar */}
       <div className="flex items-center gap-md flex-1 max-w-md">
         <div className="relative w-full">
@@ -47,7 +60,21 @@ export default function Header({ searchQuery, setSearchQuery, activeTab }: Heade
       {/* Top Controls */}
       <div className="flex items-center gap-lg">
         {/* Alerts and Chat */}
-        <div className="flex gap-sm">
+        <div className="flex gap-sm items-center">
+          {onToggleTheme && (
+            <button
+              onClick={onToggleTheme}
+              className="p-2 text-on-surface-variant hover:text-secondary rounded-full hover:bg-surface-container transition-all focus:outline-none cursor-pointer flex items-center justify-center"
+              title={theme === 'light' ? 'Alternar para Modo Escuro' : 'Alternar para Modo Claro'}
+            >
+              {theme === 'light' ? (
+                <Moon className="w-5 h-5 text-slate-650" />
+              ) : (
+                <Sun className="w-5 h-5 text-amber-400" />
+              )}
+            </button>
+          )}
+
           <button
             onClick={showNotificationAlert}
             className="p-2 text-on-surface-variant hover:text-secondary rounded-full hover:bg-surface-container transition-all relative focus:outline-none"

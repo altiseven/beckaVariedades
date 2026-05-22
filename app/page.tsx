@@ -16,10 +16,12 @@ function MainCRMApp() {
   const [searchQuery, setSearchQuery] = useState('');
   const [isNewTxOpen, setIsNewTxOpen] = useState(false);
   const [isDbSettingsOpen, setIsDbSettingsOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [sessionUser, setSessionUser] = useState<string | null>(null);
   const [isMounted, setIsMounted] = useState<boolean>(false);
+  const [theme, setTheme] = useState<'light' | 'dark'>('dark');
 
   useEffect(() => {
     Promise.resolve().then(() => {
@@ -31,9 +33,35 @@ function MainCRMApp() {
           setIsAuthenticated(true);
           setSessionUser(savedUser || 'Admin');
         }
+        
+        // Restore active theme
+        const savedTheme = localStorage.getItem('becka_theme') as 'light' | 'dark' | null;
+        if (savedTheme) {
+          setTheme(savedTheme);
+          if (savedTheme === 'dark') {
+            document.documentElement.classList.add('dark');
+          } else {
+            document.documentElement.classList.remove('dark');
+          }
+        } else {
+          // Default to dark to respect current visual branding
+          setTheme('dark');
+          document.documentElement.classList.add('dark');
+        }
       }
     });
   }, []);
+
+  const handleToggleTheme = () => {
+    const nextTheme = theme === 'light' ? 'dark' : 'light';
+    setTheme(nextTheme);
+    localStorage.setItem('becka_theme', nextTheme);
+    if (nextTheme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  };
 
   const handleLoginSuccess = (usr: string) => {
     setIsAuthenticated(true);
@@ -84,12 +112,14 @@ function MainCRMApp() {
         onOpenNewTransaction={() => setIsNewTxOpen(true)}
         onLogout={handleLogout}
         onOpenDbSettings={() => setIsDbSettingsOpen(true)}
+        isOpen={isSidebarOpen}
+        onClose={() => setIsSidebarOpen(false)}
       />
 
       {/* Main Column Wrapper */}
-      <div className="ml-64 flex flex-col flex-1 min-h-screen">
+      <div className="md:ml-64 ml-0 flex flex-col flex-1 min-h-screen w-full transition-all duration-300">
         {/* Navigation Top Bar */}
-        <Header activeTab={activeTab} searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+        <Header activeTab={activeTab} searchQuery={searchQuery} setSearchQuery={setSearchQuery} onMenuClick={() => setIsSidebarOpen(true)} theme={theme} onToggleTheme={handleToggleTheme} />
 
         {/* Dynamic Tab Panel */}
         <main className="p-lg flex-grow overflow-auto bg-background">

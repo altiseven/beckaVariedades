@@ -39,7 +39,7 @@ export default function Header({ searchQuery, setSearchQuery, activeTab }: Heade
             value={searchQuery}
             onChange={e => setSearchQuery(e.target.value)}
             placeholder={getPlaceholder()}
-            className="w-full pl-10 pr-4 py-2 bg-surface-container-low border border-outline-variant rounded-full text-sm font-medium focus:ring-2 focus:ring-secondary focus:border-transparent outline-none text-primary transition-all placeholder:text-on-surface-variant/70"
+            className="w-full pl-10 pr-4 py-2.5 bg-slate-100/70 border border-outline-variant rounded-xl text-sm font-semibold focus:ring-2 focus:ring-secondary/50 focus:border-secondary outline-none text-primary transition-all placeholder:text-slate-400"
           />
         </div>
       </div>

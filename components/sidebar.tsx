@@ -38,14 +38,14 @@ export default function Sidebar({ onOpenNewTransaction, onLogout, onOpenDbSettin
             <button
               key={item.id}
               onClick={() => setActiveTab(item.id)}
-              className={`w-full flex items-center gap-md px-md py-sm rounded-lg transition-all text-left ${
+              className={`w-full flex items-center gap-md px-md py-2.5 rounded-xl transition-all text-left cursor-pointer ${
                 isActive
-                  ? 'bg-secondary-container text-on-secondary-container font-semibold shadow-xs'
-                  : 'text-on-surface-variant hover:bg-surface-container hover:text-primary'
+                  ? 'bg-primary text-white font-bold shadow-xs'
+                  : 'text-slate-650 hover:bg-slate-100/80 hover:text-primary font-semibold'
               }`}
             >
-              <Icon className={`w-5 h-5 ${isActive ? 'text-secondary font-bold' : 'text-on-surface-variant'}`} />
-              <span className="font-sans text-sm font-medium">{item.label}</span>
+              <Icon className={`w-5 h-5 ${isActive ? 'text-secondary' : 'text-slate-400'}`} />
+              <span className="font-sans text-sm">{item.label}</span>
             </button>
           );
         })}
@@ -56,25 +56,25 @@ export default function Sidebar({ onOpenNewTransaction, onLogout, onOpenDbSettin
         {/* Floating trigger action */}
         <button
           onClick={onOpenNewTransaction}
-          className="w-full py-sm px-md bg-secondary text-on-secondary rounded-lg font-semibold text-sm hover:opacity-90 active:scale-98 transition-all flex items-center justify-center gap-sm shadow-sm"
+          className="w-full py-2.5 px-md bg-secondary text-white rounded-xl font-bold text-sm hover:bg-secondary-hover active:scale-98 transition-all flex items-center justify-center gap-sm shadow-xs cursor-pointer"
         >
-          <Plus className="w-4 h-4 text-on-secondary stroke-[3px]" />
+          <Plus className="w-4 h-4 text-white stroke-[3px]" />
           <span>New Transaction</span>
         </button>
 
         <button
           onClick={onOpenDbSettings}
-          className="w-full flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container transition-colors rounded-lg text-left cursor-pointer"
+          className="w-full flex items-center gap-md px-md py-2.5 text-slate-650 hover:bg-slate-100/80 hover:text-primary transition-all rounded-xl text-left cursor-pointer font-semibold"
         >
-          <Settings className="w-5 h-5 text-on-surface-variant" />
-          <span className="font-sans text-sm font-medium">Settings (Supabase)</span>
+          <Settings className="w-5 h-5 text-slate-400" />
+          <span className="font-sans text-sm">Settings (Supabase)</span>
         </button>
         <button
           onClick={() => alert('Fale com o suporte técnico de Becka Variedades. Email: altiseven@gmail.com')}
-          className="w-full flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container transition-colors rounded-lg text-left"
+          className="w-full flex items-center gap-md px-md py-2.5 text-slate-650 hover:bg-slate-100/80 hover:text-primary transition-all rounded-xl text-left cursor-pointer font-semibold"
         >
-          <HelpCircle className="w-5 h-5 text-on-surface-variant" />
-          <span className="font-sans text-sm font-medium">Support</span>
+          <HelpCircle className="w-5 h-5 text-slate-400" />
+          <span className="font-sans text-sm">Support</span>
         </button>
 
         {onLogout && (

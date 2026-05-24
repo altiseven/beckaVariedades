@@ -128,6 +128,11 @@
 .pl-lg { padding-left: 1.5rem !important; }
 .pr-lg { padding-right: 1.5rem !important; }
 
+/* Default text visibility for pristine high-contrast reading in light mode */
+.text-primary {
+  color: #0F172A !important;
+}
+
 /* Default body transition for smooth mode changes */
 body {
   background-color: var(--background);
